@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Ensure wildcards in globs match dotfiles too.
+shopt -s dotglob
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+BUILD_APP=$(cat "${ENV_DIR}/BUILD_APP")
+
+if [[ -z "${BUILD_APP}" ]]; then
+    echo "BUILD_APP was not set. Aborting" | indent
+    exit 1
+fi
+
+declare -a SCRIPTS=(
+  ".scripts.build = \"nx build $BUILD_APP\""
+  ".scripts.start = \"nx start $BUILD_APP\""
+  ".scripts.\"start:prod\" = \"node dist/apps/$BUILD_APP/main\""
+)
+
+echo 'Patching package.json...'
+
+for ((i = 0; i < ${#SCRIPTS[@]}; i++))
+do
+  SCRIPT="${SCRIPTS[$i]}"
+  echo "Patch jq command: '$SCRIPT'" | indent
+  CMD="jq '$SCRIPT' package.json > tmp.$$.json && mv tmp.$$.json package.json"
+  #echo $CMD
+  eval "$CMD"
+done
+
+echo "Updated build, start and start:prod scripts in package.json with: $BUILD_APP"
+
+cat package.json
+
+echo "Set up ${BUILD_APP} to be started from package.json" | indent
