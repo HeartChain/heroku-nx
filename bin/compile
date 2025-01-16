@@ -17,7 +17,7 @@ fi
 
 declare -a SCRIPTS=(
   ".scripts.build = \"nx build \$BUILD_APP\""
-  ".scripts.start = \"cd dist/apps/\$BUILD_APP && next start\""
+  ".scripts.start = \"ls && cd dist/apps/\$BUILD_APP && next start\""
   ".scripts.\"start:prod\"=\"cd dist/apps/\$BUILD_APP && next start\""
 )
 
