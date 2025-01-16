@@ -19,6 +19,7 @@ declare -a SCRIPTS=(
   ".scripts.build = \"nx build $BUILD_APP\""
   ".scripts.start = \"ls && cd dist/apps/$BUILD_APP && next start\""
   ".scripts.\"start:prod\"=\"cd dist/apps/$BUILD_APP && next start\""
+  ".scripts.heroku-postbuild = \"npm run build\""
 )
 
 echo 'Patching package.json...'
