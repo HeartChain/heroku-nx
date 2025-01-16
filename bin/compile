@@ -16,9 +16,9 @@ if [[ -z "${BUILD_APP}" ]]; then
 fi
 
 declare -a SCRIPTS=(
-  ".scripts.build = \"nx build \$BUILD_APP\""
-  ".scripts.start = \"ls && cd dist/apps/\$BUILD_APP && next start\""
-  ".scripts.\"start:prod\"=\"cd dist/apps/\$BUILD_APP && next start\""
+  ".scripts.build = \"nx build $BUILD_APP\""
+  ".scripts.start = \"ls && cd dist/apps/$BUILD_APP && next start\""
+  ".scripts.\"start:prod\"=\"cd dist/apps/$BUILD_APP && next start\""
 )
 
 echo 'Patching package.json...'
