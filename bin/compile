@@ -17,8 +17,8 @@ fi
 
 declare -a SCRIPTS=(
   ".scripts.build = \"nx build $BUILD_APP\""
-  ".scripts.start = \"nx start $BUILD_APP\""
-  ".scripts.\"start:prod\" = \"node dist/apps/$BUILD_APP/main\""
+  ".scripts.start = \"cd dist/apps/$BUILD_APP && next start\""
+  ".scripts.\"start:prod\" = \"cd dist/apps/$BUILD_APP && next start""
 )
 
 echo 'Patching package.json...'
