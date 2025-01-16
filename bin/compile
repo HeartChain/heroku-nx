@@ -17,7 +17,7 @@ fi
 
 declare -a SCRIPTS=(
   ".scripts.build = \"nx build $BUILD_APP\""
-  ".scripts.start = \"npm run build && ls && cd dist/apps/$BUILD_APP && next start\""
+  ".scripts.start = \"cd dist/apps/$BUILD_APP && next start\""
   ".scripts.\"start:prod\"=\"cd dist/apps/$BUILD_APP && next start\""
 )
 
@@ -32,8 +32,12 @@ do
   eval "$CMD"
 done
 
-echo "Updated build, start and start:prod scripts in package.json with: $BUILD_APP"
+cd $BUILD_DIR
 
-cat ${BUILD_DIR}/package.json
+echo "Installing dependencies..."
+npm install --legacy-peer-deps
+
+echo "Running Nx build..."
+npm run build $BUILD_APP
 
 echo "Set up ${BUILD_APP} to be started from package.json" | indent
