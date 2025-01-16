@@ -9,6 +9,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 BUILD_APP=$(cat "${ENV_DIR}/BUILD_APP")
+BUILD_START=$(cat "${ENV_DIR}/BUILD_START")
 
 if [[ -z "${BUILD_APP}" ]]; then
     echo "BUILD_APP was not set. Aborting" | indent
@@ -17,8 +18,8 @@ fi
 
 declare -a SCRIPTS=(
   ".scripts.build = \"nx build $BUILD_APP\""
-  ".scripts.start = \"cd dist/apps/$BUILD_APP && next start\""
-  ".scripts.\"start:prod\"=\"cd dist/apps/$BUILD_APP && next start\""
+  ".scripts.start = \"$BUILD_START\""
+  ".scripts.\"start:prod\"=\"$BUILD_START\""
 )
 
 echo 'Patching package.json...'
