@@ -9,7 +9,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 BUILD_APP=$(cat "${ENV_DIR}/BUILD_APP")
-BUILD_APP_START=$(cat "${ENV_DIR}/BUILD_APP_START")
+BUILD_CMD=$(cat "${ENV_DIR}/BUILD_CMD")
 BUILD_START=$(cat "${ENV_DIR}/BUILD_START")
 
 if [[ -z "${BUILD_APP}" ]]; then
@@ -18,7 +18,7 @@ if [[ -z "${BUILD_APP}" ]]; then
 fi
 
 declare -a SCRIPTS=(
-  ".scripts.build = \"$BUILD_APP\""
+  ".scripts.build = \"$BUILD_CMD\""
   ".scripts.start = \"$BUILD_START\""
   ".scripts.\"start:prod\"=\"$BUILD_START\""
 )
